@@ -69,14 +69,14 @@
         <EditText
             android:id="@+id/edit_result_name"
             android:enabled="false"
-            android:background="@color/teal_700"
+            android:background="@color/purple_200"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <EditText
             android:id="@+id/edit_result_count"
             android:enabled="false"
-            android:background="@color/teal_700"
+            android:background="@color/purple_200"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
