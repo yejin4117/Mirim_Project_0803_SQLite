@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     DBHelper dbHelper;
     EditText editName, editCount, editResultName, editResultCount;
+    Button btnSelect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +27,13 @@ public class MainActivity extends AppCompatActivity {
         editResultCount = findViewById(R.id.edit_result_count);
         Button btnInit = findViewById(R.id.btn_init);
         Button btnInsert = findViewById(R.id.btn_insert);
-        Button btnSelect = findViewById(R.id.btn_select);
+        Button btnUpdate = findViewById(R.id.btn_update);
+        Button btnDelete = findViewById(R.id.btn_delete);
+        btnSelect = findViewById(R.id.btn_select);
         btnInit.setOnClickListener(btnListener);
         btnInsert.setOnClickListener(btnListener);
+        btnUpdate.setOnClickListener(btnListener);
+        btnDelete.setOnClickListener(btnListener);
         btnSelect.setOnClickListener(btnListener);
         dbHelper = new DBHelper(this);
     }
@@ -45,9 +50,28 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.btn_insert:
                     db = dbHelper.getWritableDatabase();
-                    db.execSQL("insert into idplTbl values('"+editName.getText().toString()+"',"+editCount.getText().toString()+" );");
+                    db.execSQL("insert into idolTbl values('"+editName.getText().toString()+"',"+editCount.getText().toString()+" );");
                     db.close();
                     Toast.makeText(getApplicationContext(),"새로운 idol정보가 추가되었습니다.", Toast.LENGTH_LONG).show();
+                    editName.setText("");
+                    editCount.setText("");
+                    btnSelect.callOnClick();
+                    break;
+
+                case R.id.btn_update:
+                    db = dbHelper.getWritableDatabase();
+                    db.execSQL("update idolTbl set cnt = "+ editCount.toString() +" where name =' "+ editName.getText().toString() +" ;");
+                    btnSelect.callOnClick();
+                    //db.close();
+                    editName.setText("");
+                    editCount.setText("");
+                    break;
+
+                case R.id.btn_delete:
+                    db = dbHelper.getWritableDatabase();
+                    db.execSQL("delete from idolTbl where name =' "+ editName.getText().toString() +" ';");
+                    btnSelect.callOnClick();
+                    //db.close();
                     editName.setText("");
                     editCount.setText("");
                     break;
